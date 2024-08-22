@@ -20,4 +20,5 @@ export interface Breed {
 export interface BreedsState {
     breeds: Breed[];
     selectedBreed: Breed | null;
+    breedsLoaded: boolean;
 }

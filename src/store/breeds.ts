@@ -8,11 +8,13 @@ const breedsModule: Module<BreedsState, any> = {
     state: {
         breeds: [],
         selectedBreed: null,
+        breedsLoaded: false,
     },
 
     mutations: {
         SET_BREEDS(state, breeds: Breed[]) {
             state.breeds = breeds;
+            state.breedsLoaded = true;
         },
         SET_SELECTED_BREED(state, breed: Breed) {
             state.selectedBreed = breed;
@@ -26,7 +28,11 @@ const breedsModule: Module<BreedsState, any> = {
     },
 
     actions: {
-        async loadBreeds({ commit }) {
+        async loadBreeds({ state, commit }) {
+            if (state.breedsLoaded) {
+                return;
+            }
+
             try {
                 const data = await fetchBreeds();
                 const breeds: Breed[] = Object.keys(data.message).map(breedName => ({
@@ -42,6 +48,7 @@ const breedsModule: Module<BreedsState, any> = {
         },
 
         async selectBreed({ state, commit, dispatch }, breedName: string) {
+            await dispatch('loadBreeds');
             const breed = state.breeds.find(b => b.name === breedName);
             if (breed) {
                 commit('SET_SELECTED_BREED', breed);
