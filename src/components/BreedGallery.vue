@@ -1,20 +1,26 @@
 <template>
-  <div v-if="breed" class="gallery-container">
+  <div v-if="breed.images && breed.images.length" class="breed-gallery">
     <div class="image-viewer">
-      <button @click="goToPrev" :disabled="isFirstImage">Previous</button>
-      <img :src="currentImage" :alt="breed.name" />
-      <button @click="goToNext" :disabled="isLastImage">Next</button>
+      <img v-if="!!currentImage" :src="currentImage" :alt="breed.name" />
     </div>
+    <GalleryNavigation
+        :images="breed?.images"
+        @selectImageIndex="imageIndexChanged"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue} from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import { Breed } from '@/types';
+import GalleryNavigation from './GalleryNavigation.vue';
 
-@Component
+@Component({
+  components: {
+    GalleryNavigation,
+  },
+})
 export default class BreedGallery extends Vue {
-
   // Props
   @Prop({ required: true }) breed!: Breed;
 
@@ -26,43 +32,33 @@ export default class BreedGallery extends Vue {
     return this.breed?.images && this.breed.images[this.selectedImageIndex];
   }
 
-  get isFirstImage(): boolean {
-    return this.selectedImageIndex === 0;
-  }
-
-  get isLastImage(): boolean {
-    return !!(this.breed?.images && this.selectedImageIndex === this.breed.images.length - 1);
-  }
-
-
   // Methods
-  goToPrev(): void {
-    if (!this.isFirstImage) {
-      this.selectedImageIndex = this.selectedImageIndex - 1;
-    }
-  }
-
-  goToNext(): void {
-    if (!this.isLastImage) {
-      this.selectedImageIndex = this.selectedImageIndex + 1;
-    }
+  imageIndexChanged(index: number): void {
+    this.selectedImageIndex = index;
   }
 }
 </script>
 
+
 <style lang="scss">
-.gallery-container {
+.breed-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+
   .image-viewer {
     display: flex;
     align-items: center;
-    justify-content: center;
-    button {
-      margin: 0 10px;
-    }
+    margin-bottom: 20px;
+
     img {
+      width: 100%;
       max-width: 500px;
-      max-height: 400px;
-      object-fit: cover;
+      height: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
   }
 }

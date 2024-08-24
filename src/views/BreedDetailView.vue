@@ -26,10 +26,6 @@ export default class BreedListView extends Vue {
     return this.$store.state.breeds.selectedBreed;
   }
 
-  get breedNameParam(): string | undefined {
-    return this.$route.params.breed;
-  }
-
   // Watchers
   @Watch('$route.params.breed')
   onBreedChange(newBreedName: string) {
@@ -38,8 +34,9 @@ export default class BreedListView extends Vue {
 
   // Hooks
   async created() {
-    if (this.breedNameParam) {
-      this.$store.dispatch('breeds/selectBreed', this.breedNameParam);
+    const breedNameParam = this.$route.params.breed;
+    if (breedNameParam) {
+      this.$store.dispatch('breeds/selectBreed', breedNameParam);
     }
   }
 }
