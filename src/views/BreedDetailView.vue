@@ -1,17 +1,18 @@
 <template>
-  <div class="breed-list">
+  <div v-if="selectedBreed" class="breed-list">
     <h2>Selected breed: {{selectedBreed.name}}</h2>
+    <BreedGallery :breed="selectedBreed" />
   </div>
 </template>
 
 <script lang="ts">
 import {Component, Vue, Watch} from 'vue-property-decorator';
-import BreedCard from '@/components/BreedCard.vue';
 import {Breed} from "@/types";
+import BreedGallery from "@/components/BreedGallery.vue";
 
 @Component({
   components: {
-    BreedCard,
+    BreedGallery,
   },
 })
 export default class BreedListView extends Vue {
