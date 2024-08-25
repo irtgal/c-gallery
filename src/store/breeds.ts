@@ -92,12 +92,9 @@ const breedsModule: Module<BreedsState, any> = {
         },
         async selectSubBreed({ state, commit, dispatch }, { breedName, subBreedName }: { breedName: string, subBreedName: string }) {
             await dispatch('loadBreeds');
-            console.log({breedName, subBreedName});
             const breed = state.breeds.find(b => b.name === breedName);
-            console.log({breed});
             if (breed) {
                 const subBreed = breed.subBreeds?.find(sb => sb.name === subBreedName);
-                console.log({subBreed});
                 if (subBreed) {
                     if (!subBreed.images) {
                         await dispatch('loadSubBreedImages', { breedName, subBreedName });

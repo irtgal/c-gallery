@@ -53,7 +53,6 @@ export default class GalleryNavigation extends Vue {
   // Watchers
   @Watch('selectedIndex')
   onSelectedIndexChange(newIndex: number) {
-    console.log('Selected index changed to', newIndex);
     this.$emit('selectImageIsndex', newIndex);
   }
 
@@ -130,10 +129,14 @@ export default class GalleryNavigation extends Vue {
   margin: 0 5px;
   border: 2px solid transparent;
   border-radius: 5px;
-  transition: border-color 0.2s;
+  transition: filter 0.3s;
 
   &.active {
     border-color: white;
+  }
+
+  &:hover {
+    filter: brightness(0.8);
   }
 
   img {

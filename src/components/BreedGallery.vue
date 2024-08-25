@@ -31,8 +31,6 @@ export default class BreedGallery extends Vue {
   // Computed
 
   get currentImage(): string | undefined {
-    console.log(this.breed?.name);
-    console.log('Updating currentImage with index:', this.selectedImageIndex, this.breed, this.breed?.images);
     return this.breed?.images && this.breed?.images[this.selectedImageIndex];
   }
 

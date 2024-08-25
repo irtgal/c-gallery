@@ -45,7 +45,7 @@ export default class SubBreedDetailView extends Vue {
       return;
     }
 
-    const title = `${subBreedName} / ${breedName}`;
+    const title = `${breedName} / ${subBreedName}`;
     this.$store.dispatch('app/updateTitle', title);
 
     try {

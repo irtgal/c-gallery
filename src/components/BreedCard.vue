@@ -1,6 +1,6 @@
 <template>
   <div
-      class="breed-card"
+      class="breed-card hoverable-img"
       :style="backgroundStyle"
       @click="$emit('selected', breed)"
   >
@@ -36,6 +36,8 @@ export default class BreedCard extends Vue {
 </script>
 
 <style scoped lang="scss">
+@import '@/styles/variables.scss';
+
 .breed-card {
   width: 200px;
   height: 200px;
@@ -47,7 +49,7 @@ export default class BreedCard extends Vue {
   background-size: cover;
   background-position: center;
   position: relative;
-  color: white;
+  color: $textColor;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
   border: 2px solid rgb(200, 200, 200);
   border-radius: 10px;
@@ -68,6 +70,11 @@ export default class BreedCard extends Vue {
     position: relative;
     z-index: 1;
     margin-top: 5px;
+  }
+
+  &:hover {
+    border-color: white;
+    color: white;
   }
 }
 </style>

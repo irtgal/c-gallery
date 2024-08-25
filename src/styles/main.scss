@@ -35,6 +35,30 @@ body {
     color: $errorColor;
 }
 
+
+.text-center {
+    text-align: center;
+}
+
+
+.hoverable-img::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+}
+
+.hoverable-img:hover::before {
+    opacity: 1; /* Show the dark overlay on hover */
+    border-color: white;
+}
+
 .loading-spinner {
     width: 40px;
     height: 40px;
@@ -43,11 +67,6 @@ body {
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
-
-.text-center {
-    text-align: center;
-}
-
 @keyframes spin {
     0% {
         transform: rotate(0deg); /* Initial position */

@@ -7,7 +7,6 @@
       <template v-if="selectedBreed.subBreeds?.length">
         <h2 class="text-center mt-5">Sub Breeds</h2>
         <div v-if="selectedBreed.subBreeds?.length > 0" class="breeds">
-          <!-- BreedCard -->
           <BreedCard
               v-for="subBreed in selectedBreed.subBreeds"
               :breed="subBreed"
@@ -37,12 +36,9 @@ import BreedCard from "@/components/BreedCard.vue";
 export default class BreedDetailView extends Vue {
 
   // Computed
-
   get selectedBreed(): Breed | undefined {
     return this.$store.state.breeds.selectedBreed;
   }
-
-  // Watchers
 
   // Hooks
   mounted() {

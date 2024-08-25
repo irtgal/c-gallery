@@ -30,8 +30,11 @@ export default class Header extends Vue {
 
 .app-header {
   background-color: $secondaryColor;
-  color: white;
   padding: 10px 0;
   text-align: center;
+}
+
+.app-header:hover {
+  cursor: pointer;
 }
 </style>
