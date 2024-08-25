@@ -51,10 +51,10 @@ const breedsModule: Module<BreedsState, any> = {
             await dispatch('loadBreeds');
             const breed = state.breeds.find(b => b.name === breedName);
             if (breed) {
-                commit('SET_SELECTED_BREED', breed);
                 if (!breed.images) {
                     await dispatch('loadBreedImages', breedName);
                 }
+                commit('SET_SELECTED_BREED', breed);
             }
         },
 
