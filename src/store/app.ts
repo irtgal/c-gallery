@@ -9,6 +9,7 @@ const appModule: Module<AppState, any> = {
     state: {
         title: 'Dog Breeds Gallery',
         error: null,
+        loading: false,
     },
 
     mutations: {
@@ -17,6 +18,9 @@ const appModule: Module<AppState, any> = {
         },
         SET_ERROR(state, error: string | null) {
             state.error = error;
+        },
+        SET_LOADING(state, isLoading: boolean) {
+            state.loading = isLoading;
         },
     },
 
@@ -27,6 +31,9 @@ const appModule: Module<AppState, any> = {
         setError({ commit }, error: string | null) {
             commit('SET_ERROR', error);
         },
+        setLoading({ commit }, isLoading: boolean) {
+            commit('SET_LOADING', isLoading);
+        },
     },
 
     getters: {
@@ -35,6 +42,9 @@ const appModule: Module<AppState, any> = {
         },
         error(state): string | null {
             return state.error;
+        },
+        loading(state): boolean {
+            return state.loading;
         },
     },
 };

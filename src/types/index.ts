@@ -19,11 +19,12 @@ export interface Breed {
 
 export interface BreedsState {
     breeds: Breed[];
-    selectedBreed: Breed | undefined;
+    selectedBreed: Breed | null;
     breedsLoaded: boolean;
 }
 
 export interface AppState {
     title: string;
     error: string | null;
+    loading: boolean;
 }

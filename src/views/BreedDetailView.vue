@@ -34,11 +34,22 @@ export default class BreedDetailView extends Vue {
   // Hooks
   async created() {
     const breedNameParam = this.$route.params.breed;
+    if (!breedNameParam) {
+      this.$router.push({ name: 'BreedList' });
+      return;
+    }
     this.$store.dispatch('app/updateTitle', breedNameParam);
-    if (breedNameParam) {
-      this.$store.dispatch('breeds/selectBreed', breedNameParam);
+
+    try {
+        this.$store.dispatch('app/setLoading', true);
+        await this.$store.dispatch('breeds/selectBreed', breedNameParam);
+    } catch (error) {
+      this.$store.dispatch('app/setError', 'An error occurred while loading breed details');
+    } finally {
+      this.$store.dispatch('app/setLoading', false);
     }
   }
+
 }
 </script>
 

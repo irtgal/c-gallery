@@ -7,7 +7,7 @@ const breedsModule: Module<BreedsState, any> = {
 
     state: {
         breeds: [],
-        selectedBreed: undefined,
+        selectedBreed: null,
         breedsLoaded: false,
     },
 
@@ -16,7 +16,7 @@ const breedsModule: Module<BreedsState, any> = {
             state.breeds = breeds;
             state.breedsLoaded = true;
         },
-        SET_SELECTED_BREED(state, breed: Breed) {
+        SET_SELECTED_BREED(state, breed: Breed | null) {
             state.selectedBreed = breed;
         },
         SET_BREED_IMAGES(state, { breedName, images }: { breedName: string, images: string[] }) {
@@ -72,7 +72,7 @@ const breedsModule: Module<BreedsState, any> = {
         allBreeds(state): Breed[] {
             return state.breeds;
         },
-        selectedBreed(state): Breed | undefined {
+        selectedBreed(state): Breed | null {
             return state.selectedBreed;
         },
         breedImages(state): string[] {

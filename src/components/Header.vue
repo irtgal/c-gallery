@@ -19,8 +19,10 @@ export default class Header extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/variables.scss';
+
 .app-header {
-  background-color: #42b983;
+  background-color: $secondaryColor;
   color: white;
   padding: 10px 0;
   text-align: center;
