@@ -1,6 +1,6 @@
 <template>
-  <div v-if="selectedBreed" class="breed-list">
-    <BreedGallery v-if="selectedBreed.images" :breed="selectedBreed" />
+  <div v-if="selectedBreed" class="breed-details">
+    <BreedGallery :breed="selectedBreed" />
   </div>
 </template>
 
@@ -14,7 +14,7 @@ import BreedGallery from "@/components/BreedGallery.vue";
     BreedGallery,
   },
 })
-export default class BreedListView extends Vue {
+export default class BreedDetailView extends Vue {
 
   // Computed
   get breeds(): Breed[] {

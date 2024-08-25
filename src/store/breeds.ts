@@ -7,7 +7,7 @@ const breedsModule: Module<BreedsState, any> = {
 
     state: {
         breeds: [],
-        selectedBreed: null,
+        selectedBreed: undefined,
         breedsLoaded: false,
     },
 
@@ -72,7 +72,7 @@ const breedsModule: Module<BreedsState, any> = {
         allBreeds(state): Breed[] {
             return state.breeds;
         },
-        selectedBreed(state): Breed | null {
+        selectedBreed(state): Breed | undefined {
             return state.selectedBreed;
         },
         breedImages(state): string[] {

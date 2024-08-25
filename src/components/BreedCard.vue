@@ -5,6 +5,7 @@
       @click="goToBreedDetail"
   >
     <div class="breed-name">{{ breed.name }}</div>
+    <div v-if="breed.images" class="image-count">{{ imageCount }} images</div>
   </div>
 </template>
 
@@ -21,6 +22,11 @@ export default class BreedCard extends Vue {
   get breedImage(): string | null {
     return this.breed.images && this.breed.images.length > 0 ? this.breed.images[0] : null;
   }
+
+  get imageCount(): number {
+    return this.breed.images ? this.breed.images.length : 0;
+  }
+
   get backgroundStyle() {
     return {
       backgroundImage: this.breedImage ? `url(${this.breedImage})` : 'none',
@@ -39,6 +45,7 @@ export default class BreedCard extends Vue {
   height: 200px;
   margin: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-size: cover;
@@ -46,7 +53,7 @@ export default class BreedCard extends Vue {
   position: relative;
   color: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-  border: 2px solid rgb(210, 210, 210);
+  border: 2px solid rgb(200, 200, 200);
   border-radius: 10px;
   cursor: pointer;
 
@@ -54,8 +61,17 @@ export default class BreedCard extends Vue {
     font-size: 1.5rem;
     font-weight: bold;
     text-align: center;
-    position: absolute;
+    position: relative;
     z-index: 1;
+  }
+
+  .image-count {
+    font-size: 1rem;
+    opacity: 0.8;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    margin-top: 5px;
   }
 }
 </style>

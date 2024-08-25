@@ -1,7 +1,11 @@
 <template>
   <div id="app">
-    <Header />
-    <router-view />
+    <div class="header-wrapper">
+      <Header />
+    </div>
+    <div class="router-view-wrapper">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -22,4 +26,8 @@ export default class App extends Vue {
 
 <style lang="scss">
 @import './styles/main.scss';
+
+.router-view-wrapper {
+  padding: 50px 20px;
+}
 </style>

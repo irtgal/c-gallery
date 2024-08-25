@@ -1,9 +1,10 @@
 <template>
-  <div v-if="breed.images && breed.images.length" class="breed-gallery">
+  <div class="breed-gallery">
     <div class="image-viewer">
       <img v-if="!!currentImage" :src="currentImage" :alt="breed.name" />
     </div>
     <GalleryNavigation
+        v-if="breed.images"
         :images="breed?.images"
         @selectImageIndex="imageIndexChanged"
     />
@@ -11,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import { Breed } from '@/types';
 import GalleryNavigation from './GalleryNavigation.vue';
 
@@ -22,14 +23,20 @@ import GalleryNavigation from './GalleryNavigation.vue';
 })
 export default class BreedGallery extends Vue {
   // Props
-  @Prop({ required: true }) breed!: Breed;
+  // @Prop({ required: true }) breed!: Breed;
 
   // Data
   selectedImageIndex = 0;
 
   // Computed
+
+  get breed(): Breed  | undefined {
+    return this.$store.state.breeds.selectedBreed;
+  }
   get currentImage(): string | undefined {
-    return this.breed?.images && this.breed.images[this.selectedImageIndex];
+    console.log(this.breed?.name);
+    console.log('Updating currentImage with index:', this.selectedImageIndex, this.breed, this.breed?.images);
+    return this.breed?.images && this.breed?.images[this.selectedImageIndex];
   }
 
   // Methods
@@ -45,20 +52,19 @@ export default class BreedGallery extends Vue {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
+  box-sizing: border-box;
 
   .image-viewer {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
+    height: 50vh;
 
     img {
       width: 100%;
-      max-width: 500px;
-      height: auto;
+      max-height: 50vh;;
       object-fit: contain;
       border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
   }
 }

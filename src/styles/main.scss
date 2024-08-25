@@ -1,3 +1,11 @@
+@import 'variables';
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
 #app {
-    background-color: #1a1a1a;
+    background-color: $darkBackgroundColor;
+    min-height: 100vh;
 }
