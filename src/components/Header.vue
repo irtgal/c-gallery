@@ -1,14 +1,21 @@
 <template>
   <header class="app-header">
-    <h1>Dog Breeds Gallery</h1>
+    <h1>{{title}}</h1>
   </header>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
+
 @Component
-export default class Header extends Vue {}
+export default class Header extends Vue {
+
+// Computed
+  get title(): string {
+    return this.$store.state.app.title;
+  }
+}
 </script>
 
 <style lang="scss" scoped>

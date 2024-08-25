@@ -1,7 +1,6 @@
 <template>
   <div v-if="selectedBreed" class="breed-list">
-    <h2>Selected breed: {{selectedBreed.name}}</h2>
-    <BreedGallery :breed="selectedBreed" />
+    <BreedGallery v-if="selectedBreed.images" :breed="selectedBreed" />
   </div>
 </template>
 
@@ -35,6 +34,7 @@ export default class BreedListView extends Vue {
   // Hooks
   async created() {
     const breedNameParam = this.$route.params.breed;
+    this.$store.dispatch('app/updateTitle', breedNameParam);
     if (breedNameParam) {
       this.$store.dispatch('breeds/selectBreed', breedNameParam);
     }

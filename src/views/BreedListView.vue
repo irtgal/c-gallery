@@ -1,6 +1,5 @@
 <template>
   <div class="breed-list">
-    <h2>Select a Breed</h2>
     <div class="breeds">
       <BreedCard v-for="breed in breeds" :key="breed.name" :breed="breed" />
     </div>
@@ -27,6 +26,7 @@ export default class BreedListView extends Vue {
   // Hooks
   created() {
     this.fetchBreeds();
+    this.$store.dispatch('app/updateTitle', 'Select a Breed');
   }
 
   // Methods

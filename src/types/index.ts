@@ -22,3 +22,8 @@ export interface BreedsState {
     selectedBreed: Breed | null;
     breedsLoaded: boolean;
 }
+
+export interface AppState {
+    title: string;
+    error: string | null;
+}
