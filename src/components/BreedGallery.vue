@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import {Component, Prop, Vue} from 'vue-property-decorator';
 import { Breed } from '@/types';
 import GalleryNavigation from './GalleryNavigation.vue';
 
@@ -23,16 +23,13 @@ import GalleryNavigation from './GalleryNavigation.vue';
 })
 export default class BreedGallery extends Vue {
   // Props
-  // @Prop({ required: true }) breed!: Breed;
+  @Prop({ required: true }) breed!: Breed;
 
   // Data
   selectedImageIndex = 0;
 
   // Computed
 
-  get breed(): Breed  | undefined {
-    return this.$store.state.breeds.selectedBreed;
-  }
   get currentImage(): string | undefined {
     console.log(this.breed?.name);
     console.log('Updating currentImage with index:', this.selectedImageIndex, this.breed, this.breed?.images);

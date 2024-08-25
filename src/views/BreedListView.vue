@@ -1,7 +1,7 @@
 <template>
   <div class="breed-list">
     <div class="breeds">
-      <BreedCard v-for="breed in breeds" :key="breed.name" :breed="breed" />
+      <BreedCard v-for="breed in breeds" :key="breed.name" :breed="breed" @selected="goToBreedDetail" />
     </div>
   </div>
 </template>
@@ -32,6 +32,10 @@ export default class BreedListView extends Vue {
   // Methods
   fetchBreeds() {
     this.$store.dispatch('breeds/loadBreeds');
+  }
+
+  goToBreedDetail(breed: Breed) {
+    this.$router.push({ name: 'BreedDetail', params: { breed: breed.name } });
   }
 }
 </script>

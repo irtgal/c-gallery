@@ -17,3 +17,8 @@ export const fetchBreedImages = async (breed: string): Promise<string[]> => {
     const response = await apiClient.get<BreedImagesResponse>(`/breed/${breed}/images`);
     return response.data.message;
 };
+
+export const fetchSubBreedImages = async (breed: string, subBreed: string): Promise<string[]> => {
+    const response = await apiClient.get<BreedImagesResponse>(`/breed/${breed}/${subBreed}/images`);
+    return response.data.message;
+}

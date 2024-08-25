@@ -17,9 +17,14 @@ export interface Breed {
     subBreeds?: Breed[];
 }
 
+export interface SubBreed extends Breed {
+    parentBreed: string;
+}
+
 export interface BreedsState {
     breeds: Breed[];
     selectedBreed: Breed | null;
+    selectedSubBreed: SubBreed | null;
     breedsLoaded: boolean;
 }
 

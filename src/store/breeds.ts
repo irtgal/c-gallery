@@ -1,6 +1,6 @@
 import { Module } from 'vuex';
-import { BreedsState, Breed } from '@/types';
-import { fetchBreeds, fetchBreedImages } from '@/api/dogApi';
+import {BreedsState, Breed, SubBreed} from '@/types';
+import {fetchBreeds, fetchBreedImages, fetchSubBreedImages} from '@/api/dogApi';
 
 const breedsModule: Module<BreedsState, any> = {
     namespaced: true,
@@ -8,6 +8,7 @@ const breedsModule: Module<BreedsState, any> = {
     state: {
         breeds: [],
         selectedBreed: null,
+        selectedSubBreed: null,
         breedsLoaded: false,
     },
 
@@ -16,14 +17,26 @@ const breedsModule: Module<BreedsState, any> = {
             state.breeds = breeds;
             state.breedsLoaded = true;
         },
-        SET_SELECTED_BREED(state, breed: Breed | null) {
-            state.selectedBreed = breed;
-        },
         SET_BREED_IMAGES(state, { breedName, images }: { breedName: string, images: string[] }) {
             const breed = state.breeds.find(b => b.name === breedName);
             if (breed) {
                 breed.images = images;
             }
+        },
+        SET_SUB_BREED_IMAGES(state, { breedName, subBreedName, images }: { breedName: string, subBreedName: string, images: string[] }) {
+            const breed = state.breeds.find(b => b.name === breedName);
+            if (breed) {
+                const subBreed = breed.subBreeds?.find(sb => sb.name === subBreedName);
+                if (subBreed) {
+                    subBreed.images = images;
+                }
+            }
+        },
+        SET_SELECTED_BREED(state, breed: Breed | null) {
+            state.selectedBreed = breed;
+        },
+        SET_SELECTED_SUB_BREED(state, subBreed: SubBreed | null) {
+            state.selectedSubBreed = subBreed;
         },
     },
 
@@ -39,12 +52,31 @@ const breedsModule: Module<BreedsState, any> = {
                     name: breedName,
                     subBreeds: data.message[breedName].map(subBreedName => ({
                         name: subBreedName,
-                    })),
+                        parentBreed: breedName,
+                    } as SubBreed )),
                 }));
                 commit('SET_BREEDS', breeds);
             } catch (error) {
                 dispatch('app/setError', 'Failed to load breeds', { root: true });
 
+            }
+        },
+
+        async loadBreedImages({ commit }, breedName: string) {
+            try {
+                const images = await fetchBreedImages(breedName);
+                commit('SET_BREED_IMAGES', { breedName, images });
+            } catch (error) {
+                console.error('Error loading breed images:', error);
+            }
+        },
+
+        async loadSubBreedImages({ commit }, { breedName, subBreedName }: { breedName: string, subBreedName: string }) {
+            try {
+                const images = await fetchSubBreedImages(breedName, subBreedName);
+                commit('SET_SUB_BREED_IMAGES', { breedName, subBreedName, images });
+            } catch (error) {
+                console.error('Error loading sub-breed images:', error);
             }
         },
 
@@ -58,30 +90,25 @@ const breedsModule: Module<BreedsState, any> = {
                 commit('SET_SELECTED_BREED', breed);
             }
         },
-
-        async loadBreedImages({ commit }, breedName: string) {
-            try {
-                const images = await fetchBreedImages(breedName);
-                commit('SET_BREED_IMAGES', { breedName, images });
-            } catch (error) {
-                console.error('Error loading breed images:', error);
+        async selectSubBreed({ state, commit, dispatch }, { breedName, subBreedName }: { breedName: string, subBreedName: string }) {
+            await dispatch('loadBreeds');
+            console.log({breedName, subBreedName});
+            const breed = state.breeds.find(b => b.name === breedName);
+            console.log({breed});
+            if (breed) {
+                const subBreed = breed.subBreeds?.find(sb => sb.name === subBreedName);
+                console.log({subBreed});
+                if (subBreed) {
+                    if (!subBreed.images) {
+                        await dispatch('loadSubBreedImages', { breedName, subBreedName });
+                    }
+                    commit('SET_SELECTED_SUB_BREED', subBreed);
+                }
             }
-        },
+        }
     },
 
     getters: {
-        allBreeds(state): Breed[] {
-            return state.breeds;
-        },
-        selectedBreed(state): Breed | null {
-            return state.selectedBreed;
-        },
-        breedImages(state): string[] {
-            return state.selectedBreed?.images || [];
-        },
-        subBreeds(state): Breed[] {
-            return state.selectedBreed?.subBreeds || [];
-        },
     },
 };
 

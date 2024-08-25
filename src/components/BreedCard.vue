@@ -2,7 +2,7 @@
   <div
       class="breed-card"
       :style="backgroundStyle"
-      @click="goToBreedDetail"
+      @click="$emit('selected', breed)"
   >
     <div class="breed-name">{{ breed.name }}</div>
     <div v-if="breed.images" class="image-count">{{ imageCount }} images</div>
@@ -31,10 +31,6 @@ export default class BreedCard extends Vue {
     return {
       backgroundImage: this.breedImage ? `url(${this.breedImage})` : 'none',
     };
-  }
-
-  goToBreedDetail() {
-    this.$router.push({ name: 'BreedDetail', params: { breed: this.breed.name } });
   }
 }
 </script>

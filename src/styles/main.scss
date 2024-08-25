@@ -17,6 +17,10 @@ body {
 
 // utils
 
+.mt-5 {
+    margin-top: 5rem;
+}
+
 .label {
     font-size: 1rem;
     opacity: 0.8;
@@ -38,6 +42,10 @@ body {
     border-top: 4px solid $secondaryColor;
     border-radius: 50%;
     animation: spin 1s linear infinite;
+}
+
+.text-center {
+    text-align: center;
 }
 
 @keyframes spin {
