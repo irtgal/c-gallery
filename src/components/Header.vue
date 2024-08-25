@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header">
+  <header class="app-header"  @click="goHome()">
     <h1>{{title}}</h1>
   </header>
 </template>
@@ -14,6 +14,13 @@ export default class Header extends Vue {
 // Computed
   get title(): string {
     return this.$store.state.app.title;
+  }
+
+  // Methods
+  goHome() {
+    if (this.$route.name !== 'BreedList') {
+      this.$router.push({ name: 'BreedList' });
+    }
   }
 }
 </script>

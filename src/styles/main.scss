@@ -1,8 +1,11 @@
 @import 'variables';
 
+
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    color: $textColor;
 }
 
 #app {
@@ -14,6 +17,19 @@ body {
 
 // utils
 
+.label {
+    font-size: 1rem;
+    opacity: 0.8;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    margin-top: 5px;
+    color: $textColor;
+}
+
+.error-message {
+    color: $errorColor;
+}
 
 .loading-spinner {
     width: 40px;

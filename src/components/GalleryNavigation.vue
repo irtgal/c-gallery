@@ -11,6 +11,9 @@
         <img :src="image" :alt="'Thumbnail ' + images.indexOf(image)" />
       </div>
     </div>
+    <div class="label">
+      {{selectedIndex + 1 }} of {{this.images.length}} images
+    </div>
   </div>
 </template>
 
@@ -99,12 +102,17 @@ export default class GalleryNavigation extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .gallery-navigation {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   width: 100%;
   padding: 0 10px;
+
+  .label {
+    margin-top: 20px;
+  }
 }
 
 .thumbnails-wrapper {

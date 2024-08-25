@@ -28,7 +28,7 @@ const breedsModule: Module<BreedsState, any> = {
     },
 
     actions: {
-        async loadBreeds({ state, commit }) {
+        async loadBreeds({ state, commit, dispatch }) {
             if (state.breedsLoaded) {
                 return;
             }
@@ -43,7 +43,8 @@ const breedsModule: Module<BreedsState, any> = {
                 }));
                 commit('SET_BREEDS', breeds);
             } catch (error) {
-                console.error('Error loading breeds:', error);
+                dispatch('app/setError', 'Failed to load breeds', { root: true });
+
             }
         },
 

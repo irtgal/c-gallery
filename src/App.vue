@@ -7,7 +7,7 @@
       <div class="loading-spinner"></div>
     </div>
     <div class="error-wrapper" v-else-if="error">
-      <div class="error-message">{{ error }}</div>
+      <h5 class="error-message">{{ error }}</h5>
     </div>
 
     <div v-show="!loading && !error" class="router-view-wrapper">
@@ -30,6 +30,7 @@ import Header from './components/Header.vue';
 })
 export default class App extends Vue {
 
+  // Computed
   get loading(): boolean {
     return this.$store.state.app.loading;
   }
@@ -55,12 +56,4 @@ export default class App extends Vue {
   text-align: center;
 }
 
-.loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-top: 4px solid #3498db;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
 </style>

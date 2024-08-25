@@ -29,9 +29,11 @@ const appModule: Module<AppState, any> = {
             commit('SET_TITLE', newTitle);
         },
         setError({ commit }, error: string | null) {
+            commit('SET_LOADING', false);
             commit('SET_ERROR', error);
         },
         setLoading({ commit }, isLoading: boolean) {
+            commit('SET_ERROR', null);
             commit('SET_LOADING', isLoading);
         },
     },
